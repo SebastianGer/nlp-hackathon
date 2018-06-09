@@ -36,4 +36,4 @@ with open("articleMood_copy.csv", "r") as inFile:
 						print(newLine+"\n\n")
 						break
 
-			outFile.write(line)
+			outFile.write(newLine)
