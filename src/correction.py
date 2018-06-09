@@ -1,8 +1,8 @@
 # We saved the results of the watson computations in a semicolon-separated csv file, which became problematic when headlines and URLs contained semicolons aswell.
 # This program fixes the formating by replacing the separating semicolons with char(30), an ASCII separation character.
 
-with open("articleMood_copy.csv", "r") as inFile:
-	with open("articleMoodCorrected.csv", "w") as outFile:
+with open("../data/articleMood_copy.csv", "r") as inFile:
+	with open("../data/articleMoodCorrected.csv", "w") as outFile:
 		for line in inFile:
 
 			newLine = line

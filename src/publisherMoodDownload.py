@@ -24,7 +24,7 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
 
 delimiter = char(30)
 
-with open("articleMood.csv", "w") as f:
+with open("../data/articleMood.csv", "w") as f:
 	
 	for id, article in data.iterrows():
 		try:
