@@ -1,3 +1,6 @@
+# This script requests document-level emotions for six big publishers from IBM watson and saves them to a file
+# Old versions of this used a semicolon as delimiter, which proved to be problematic.
+
 import pandas as pd
 
 data = pd.read_csv("../data/newsCorpora.csv", delimiter = "\t", names = ["id", "headline", "url", "publisher", "dontknow", "dontknow2", "domain", "timestamp"])
@@ -19,6 +22,8 @@ natural_language_understanding = NaturalLanguageUnderstandingV1(
   url='https://gateway-fra.watsonplatform.net/natural-language-understanding/api')
 
 
+delimiter = char(30)
+
 with open("articleMood.csv", "w") as f:
 	
 	for id, article in data.iterrows():
@@ -27,17 +32,17 @@ with open("articleMood.csv", "w") as f:
 			  url=article["url"],
 			  features=Features(
 			  emotion=EmotionOptions()))
-			entry = str(article["id"])+";"+ \
-				article["headline"]+";"+ \
-				article["url"] +";"+ \
-				article["publisher"]+";"+ \
-				str(article["timestamp"])+";"+ \
-				str(response["emotion"]["document"]["emotion"]["anger"])+";"+ \
-				str(response["emotion"]["document"]["emotion"]["joy"])+";"+ \
-				str(response["emotion"]["document"]["emotion"]["sadness"])+";"+ \
-				str(response["emotion"]["document"]["emotion"]["fear"])+";"+ \
+			entry = str(article["id"])+delimiter+ \
+				article["headline"]+delimiter+ \
+				article["url"] +delimiter+ \
+				article["publisher"]+delimiter+ \
+				str(article["timestamp"])+delimiter+ \
+				str(response["emotion"]["document"]["emotion"]["anger"])+delimiter+ \
+				str(response["emotion"]["document"]["emotion"]["joy"])+delimiter+ \
+				str(response["emotion"]["document"]["emotion"]["sadness"])+delimiter+ \
+				str(response["emotion"]["document"]["emotion"]["fear"])+delimiter+ \
 				str(response["emotion"]["document"]["emotion"]["disgust"])+"\n"
 			f.write(entry)	
 			print id
 		except:
-			print "error in article"+str(article["id"])
+			print "error in article "+str(article["id"])
